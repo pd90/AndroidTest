@@ -15,6 +15,7 @@
 
         <ImageView
             android:layout_width="50dp"
+            android:id="@+id/img_user"
             android:layout_height="50dp"/>
     </androidx.cardview.widget.CardView>
 
@@ -24,16 +25,18 @@
         android:orientation="vertical"
         android:padding="10dp"
         android:layout_toRightOf="@+id/img_cardview"
-        >
+        android:layout_toEndOf="@+id/img_cardview">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User Name"
+            android:id="@+id/text_username"
             android:textSize="18sp"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/text_designation"
             android:text="User Designation"
             android:textSize="15sp"
             >
