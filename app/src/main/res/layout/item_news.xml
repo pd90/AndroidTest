@@ -5,17 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header"
-        layout="@layout/item_list_header" />
+
 <androidx.cardview.widget.CardView
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     card_view:cardBackgroundColor="#FFF"
-    android:layout_below="@+id/header"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="2dp"
     card_view:cardUseCompatPadding="true">
@@ -26,7 +21,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/body_content"
         android:orientation="vertical">
-
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/header"
+            layout="@layout/item_list_header" />
         <ImageView
             android:id="@+id/img_article"
             android:layout_width="match_parent"

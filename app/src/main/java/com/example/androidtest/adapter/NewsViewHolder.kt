@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -12,15 +11,16 @@ import com.example.androidtest.R
 import com.example.androidtest.data.FeedsModel
 import kotlinx.android.synthetic.main.item_list_header.view.*
 import kotlinx.android.synthetic.main.item_news.view.*
+import kotlin.math.abs
 
 class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
     @SuppressLint("SetTextI18n")
-    fun bind(news: FeedsModel?, position: Int?) {
+    fun bind(news: FeedsModel?) {
         if (news != null) {
             itemView.txt_article_content.text = news.content
-            itemView.likes.text = news.likes.toString()
-            itemView.comments.text = news.comments.toString()
+            itemView.likes.text = parseLikes(news.likes)
+            itemView.comments.text = parseComments(news.comments)
 
             if(news.media?.size!! >0) {
                 if (!news.media[0].image.isNullOrEmpty()) {
@@ -58,4 +58,35 @@ class NewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         }
     }
 
+    fun parseLikes(input: Int?):String?{
+        var formatString = ""
+        formatString = when {
+            input?.div(1000000)?.let { abs(it) }!! > 1 -> {
+                (input / 1000000).toString() + "m Likes"
+            }
+            abs(input / 1000) > 1 -> {
+                (input / 1000).toString() + "k Likes"
+            }
+            else -> {
+                "$input Likes"
+            }
+        }
+       return formatString
+    }
+
+    fun parseComments(input: Int?):String?{
+        var formatString = ""
+        formatString = when {
+            input?.div(1000000)?.let { abs(it) }!! > 1 -> {
+                (input / 1000000).toString() + "m Comments"
+            }
+            abs(input / 1000) > 1 -> {
+                (input / 1000).toString() + "k Comments"
+            }
+            else -> {
+                "$input Comments"
+            }
+        }
+        return formatString
+    }
 }

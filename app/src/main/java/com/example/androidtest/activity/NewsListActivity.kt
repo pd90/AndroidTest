@@ -3,6 +3,7 @@ package com.example.androidtest.activity
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -41,6 +42,7 @@ class NewsListActivity : AppCompatActivity() {
         txt_error.setOnClickListener { viewModel.retry() }
         viewModel.getState().observe(this, Observer { state ->
             progress_bar.visibility = if (viewModel.listIsEmpty() && state == LOADING) VISIBLE else GONE
+            Toast.makeText(this,"Loading.",Toast.LENGTH_SHORT).show()
             txt_error.visibility = if (viewModel.listIsEmpty() && state == ERROR) VISIBLE else GONE
             if (!viewModel.listIsEmpty()) {
                 newsListAdapter.setState(state ?: State.DONE)

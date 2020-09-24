@@ -21,7 +21,7 @@ class NewsListViewModel : ViewModel() {
         val config = PagedList.Config.Builder()
                 .setPageSize(pageSize)
                 .setInitialLoadSizeHint(pageSize)
-                .setEnablePlaceholders(false)
+                .setEnablePlaceholders(true)
                 .build()
         newsList = LivePagedListBuilder(newsDataSourceFactory, config).build()
     }

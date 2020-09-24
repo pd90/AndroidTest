@@ -1,6 +1,8 @@
 package com.example.androidtest.adapter
 
+import android.util.Log
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -16,17 +18,23 @@ class NewsListAdapter(private val retry: () -> Unit)
     private var state = State.LOADING
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == DATA_VIEW_TYPE) NewsViewHolder.create(parent) else ListFooterViewHolder.create(retry, parent)
+        return if (viewType == DATA_VIEW_TYPE) NewsViewHolder.create(parent)
+        else ListFooterViewHolder.create(retry, parent)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == DATA_VIEW_TYPE)
-            (holder as NewsViewHolder).bind(getItem(position),position)
-        else (holder as ListFooterViewHolder).bind(state)
+        if (getItemViewType(position) == DATA_VIEW_TYPE) {
+            (holder as NewsViewHolder).bind(getItem(position))
+        }
+        else {
+            (holder as ListFooterViewHolder).bind(state)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position < super.getItemCount()) DATA_VIEW_TYPE else FOOTER_VIEW_TYPE
+        Log.e("status",(super.getItemCount()).toString())
+        Log.e("position",(position).toString())
+        return if (position < super.getCurrentList()?.size!!) DATA_VIEW_TYPE else FOOTER_VIEW_TYPE
     }
 
     companion object {
